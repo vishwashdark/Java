@@ -9,3 +9,4 @@ All basic Programming Questions from
 3. prime - prime number checking
 4. twonumber - adding two numbers
 5. userinput - taking user input
+6.randomnumgene - random number generator
