@@ -1,0 +1,30 @@
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+import base64
+
+# Base64 encoded key from clue.txt
+base64_key = "MDI1MDYxODAzMzUzMTU2MDYyMzYyMDU2MzM1NTQ2MzY="
+
+# Decode base64 to get hexadecimal key
+hex_key = base64.b64decode(base64_key).hex()
+
+# Convert hex key to bytes
+key = bytes.fromhex(hex_key)
+
+# Initialization Vector (IV)
+iv = b'0123456789abcdef'
+
+# Read the encrypted message from the file
+with open("encrypted_notes.bin", "rb") as f:
+    encrypted_message = f.read()
+
+# Create AES cipher
+cipher = AES.new(key, AES.MODE_CBC, iv)
+
+# Decrypt the message
+decrypted_padded_message = cipher.decrypt(encrypted_message)
+
+# Unpad the decrypted message
+decrypted_message = unpad(decrypted_padded_message, AES.block_size)
+
+print("Decrypted message:", decrypted_message.decode())
